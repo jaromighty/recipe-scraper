@@ -1,9 +1,9 @@
 const scraperObject = {
-    url: 'https://www.sixsistersstuff.com/recipe/moms-easy-chicken-broccoli-casserole/',
+    url: 'https://ohsweetbasil.com/one-pan-honey-garlic-kielbasa-recipe/',
     fs: require('fs'),
     async scraper (browser){
         let page = await browser.newPage();
-        console.log(`Navigating to ${this.url}...`);
+        console.log(`Navigating to ${this.url}`);
         await page.goto(this.url, {
             waitUntil: 'networkidle2',
             timeout: 0
@@ -19,7 +19,7 @@ const scraperObject = {
 
                 recipe.ingredients = await page.$$eval('.wprm-recipe-ingredient', ingredients => ingredients.map((ingredient) => ({
                     fullText: ingredient.textContent.trim(),
-                    amount: ingredient.querySelector('.wprm-recipe-ingredient-amount')?.textContent.trim() || '',
+                    quantity: ingredient.querySelector('.wprm-recipe-ingredient-amount')?.textContent.trim() || '',
                     unit: ingredient.querySelector('.wprm-recipe-ingredient-unit')?.textContent.trim() || '',
                     name: ingredient.querySelector('.wprm-recipe-ingredient-name')?.textContent.trim() || '',
                     notes: ingredient.querySelector('.wprm-recipe-ingredient-notes')?.textContent.trim() || ''
